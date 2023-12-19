@@ -1,23 +1,22 @@
+import { useState } from 'react';
 import Head from 'next/head'
-import Header from '@components/Header'
-import Footer from '@components/Footer'
+import NotePad from '@components/NotePad/NotePad';
+import SideRail from '@components/SideRail/SideRail';
 
 export default function Home() {
+  const [sideRailOpen, setSideRailOpen] = useState(true);
+
   return (
     <div className="container">
       <Head>
-        <title>Next.js Starter!</title>
+        <title>Simple Writer</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <Header title="Welcome to my app!" />
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
+        <SideRail setSideRailOpen={setSideRailOpen} />
+        <NotePad sideRailOpen={sideRailOpen} />
       </main>
-
-      <Footer />
     </div>
   )
 }

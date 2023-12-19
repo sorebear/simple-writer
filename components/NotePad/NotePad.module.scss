@@ -1,0 +1,21 @@
+.notePad {
+  width: 100%;
+  height: 100%;
+  padding: 4rem;
+  display: flex;
+  justify-content: center;
+
+  &[data-side-rail="open"] {
+    width: calc(100% - 20rem);
+  }
+}
+
+.textarea {
+  width: 100%;
+  height: 100%;
+  max-width: 70rem;
+  resize: none;
+  font-size: 1.8rem;
+  border: none;
+  outline: none;
+}
