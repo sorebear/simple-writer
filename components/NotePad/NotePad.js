@@ -5,8 +5,26 @@ const NotePad = ({ sideRailOpen }) => {
   const timeoutRef = useRef(null);
   const [textValue, setTextValue] = useState('');
 
+  const getFilesFromCookie = () => {
+    const c_name = 'writer_files';
+    if (document.cookie.length > 0) {
+      let c_start = document.cookie.indexOf(c_name + '=');
+      if (c_start != -1) {
+        c_start = c_start + c_name.length + 1;
+        let c_end = document.cookie.indexOf(';', c_start);
+        if (c_end == -1) {
+          c_end = document.cookie.length;
+        }
+        const files = JSON.parse(document.cookie.substring(c_start, c_end) || '{}');
+        return files;        
+      }
+    }
+
+    return {};
+  }
+
   useEffect(() => {
-    const files = JSON.parse(localStorage.getItem('simpleWriterFiles') || '{}');
+    const files = getFilesFromCookie();
     if (files['Test Document']) {
       setTextValue(files['Test Document']);
     }
@@ -20,11 +38,9 @@ const NotePad = ({ sideRailOpen }) => {
     timeoutRef.current = setTimeout(() => {
       console.log('[SOREN save file]');
 
-      const files = JSON.parse(localStorage.getItem('simpleWriterFiles') || '{}');
-
+      const files = getFilesFromCookie();
       files['Test Document'] = textValue;
-      
-      localStorage.setItem('simpleWriterFiles', JSON.stringify(files));
+      document.cookie = `writer_files=${JSON.stringify(files)}; path=/`
     }, 2000);
   }
 
