@@ -6,7 +6,7 @@ const NotePad = ({ sideRailOpen }) => {
   const [textValue, setTextValue] = useState('');
 
   useEffect(() => {
-    const files = JSON.parse(localStorage.getItem('simpleWriterFiles') || {});
+    const files = JSON.parse(localStorage.getItem('simpleWriterFiles') || '{}');
     if (files['Test Document']) {
       setTextValue(files['Test Document']);
     }
